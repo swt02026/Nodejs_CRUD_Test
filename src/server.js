@@ -10,31 +10,43 @@ var db = mysql.createConnection({
     database: 'test2'
 });
 
-function show(db, res) {
+function show(db, res, jadeTemplate) {
     
     db.query('select * from work');
-    res.setHeader('Content-Type', 'text/html');
-    res.setHeader('Content-Length', Buffer.byteLength(html));
-    var html;
-    res.end(html); 
+    var html = jadeTemplate({
+        show:"show"
+    });
+    writeHtml(res,html);
 }
 
-function showNothing(res) {
-    
-    var jadeTemplate = jade.compileFile('./index.jade');
+function showNothing(res, jadeTemplate) {
+        
     var html = jadeTemplate({
-        user:"UCCU"
+        user:"UCCU",
+        nothing:"nothing"
     });
+    writeHtml(res,html);
+}
+
+function writeHtml(res,html) {
     
     res.setHeader('Content-Type', 'text/html');
     res.setHeader('Content-Length', Buffer.byteLength(html));
-    
     res.end(html); 
 }
 
 var server = http.createServer(function (req, res) {
+    var jadeTemplate = jade.compileFile('./index.jade');
+    switch (req.url) {
+        case '/show':
+            
+            break;
     
-    showNothing(res);
+        default:
+            showNothing(res, jadeTemplate);
+            break;
+    }
+    
 });
 
 server.listen(3000);
