@@ -1,4 +1,10 @@
 body
     h1 #{user}
-    button(type="button",onclick='location.href="/show"') show
-    button(type="button",onclick='location.href="/delete"') delete
+    button(type="button",
+    onclick='location.href="/show"',
+    class="btn btn-success"
+    ) show
+    
+    button(type="button",
+    onclick='location.href="/delete"',
+    class="btn btn-primary") delete
