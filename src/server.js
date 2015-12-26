@@ -25,7 +25,7 @@ function showNothing(res) {
     var jadeTemplate = jade.compileFile('./index.jade');
     
     var html = jadeTemplate({
-        username:"swt02026"
+        user:"swt02026"
     });
     res.end(html); 
 }
@@ -34,3 +34,4 @@ var server = http.createServer(function (req, res) {
     
     showNothing(res);
 });
+
