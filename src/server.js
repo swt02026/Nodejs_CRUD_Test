@@ -23,7 +23,7 @@ function showNothing(res) {
     
     var jadeTemplate = jade.compileFile('./index.jade');
     var html = jadeTemplate({
-        user:"swt02026"
+        user:"UCCU"
     });
     
     res.setHeader('Content-Type', 'text/html');
