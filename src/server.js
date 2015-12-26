@@ -12,11 +12,14 @@ var db = mysql.createConnection({
 
 function show(db, res, jadeTemplate) {
     
-    db.query('select * from work');
-    var html = jadeTemplate({
-        show:"show"
+    db.query('select * from work',function (err, rows) {
+
+        var html = jadeTemplate({
+            show:"show",
+            rows:rows
+        });
+        writeHtml(res,html);
     });
-    writeHtml(res,html);
 }
 
 function showNothing(res, jadeTemplate) {
@@ -36,10 +39,11 @@ function writeHtml(res,html) {
 }
 
 var server = http.createServer(function (req, res) {
+    
     var jadeTemplate = jade.compileFile('./index.jade');
     switch (req.url) {
         case '/show':
-            
+            show(db, res, jadeTemplate);
             break;
     
         default:
