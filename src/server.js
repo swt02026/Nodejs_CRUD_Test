@@ -20,13 +20,15 @@ function show(db, res) {
 }
 
 function showNothing(res) {
-    res.setHeader('Content-Type', 'text/html');
-    res.setHeader('Content-Length', Buffer.byteLength(html));
-    var jadeTemplate = jade.compileFile('./index.jade');
     
+    var jadeTemplate = jade.compileFile('./index.jade');
     var html = jadeTemplate({
         user:"swt02026"
     });
+    
+    res.setHeader('Content-Type', 'text/html');
+    res.setHeader('Content-Length', Buffer.byteLength(html));
+    
     res.end(html); 
 }
 
