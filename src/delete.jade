@@ -4,7 +4,7 @@ form(action="/delete",
         each val in rows
             tr
                 td 
-                    input(type="checkbox",name="wantToDelete["+val.id+"]")
+                    input(type="checkbox",name="wantToDelete")
                 td=val.id
                 td=val.name
     input(type="submit",
