@@ -1,0 +1,11 @@
+form
+    table(class="table table-bordered")
+        each val in rows
+            tr
+                td 
+                    input(type="checkbox",name="wantToDelete[]")
+                td=val.id
+                td=val.name
+button(type="button",
+onclick='location.href="/"',
+class="btn btn-primary") back
