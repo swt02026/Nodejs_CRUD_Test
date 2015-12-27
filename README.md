@@ -51,12 +51,22 @@ node server.js
 
 #### Screen Shot
 
+###### On index Page
+
 ![index page](./resource/1.png)
+
+###### On Show Table
 
 ![show table](./resource/3.png)
 
+###### On Insert Row
+
 ![insert row](./resource/5.png)
 
+###### On Delete Row
+
 ![delete row](./resource/2.png)
+
+###### On Update Row
 
 ![update row](./resource/4.png)
