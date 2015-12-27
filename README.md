@@ -11,6 +11,12 @@ practice for CRUD on nodejs
 * querystring(in package.json)
 * node mysql(in package.json)
 
+## Table column
+
+* id: int(11) NOT NULL AUTO_INCREMENT
+
+* name: varchar(45)
+
 ## Path Route
 
 > /show : show database's content
@@ -45,7 +51,12 @@ node server.js
 
 #### Screen Shot
 
+![index page](./resource/1.png)
 
-###### On Index page
+![show table](./resource/3.png)
 
-![index](./resource/1.png)
+![insert row](./resource/5.png)
+
+![delete row](./resource/2.png)
+
+![update row](./resource/4.png)
