@@ -54,6 +54,7 @@ function writeHtml(res,html) {
 }
 
 function delete_item(db, req) {
+    
   var data = "";
   req.on('data',function(chunk){
     data += chunk;
@@ -61,7 +62,8 @@ function delete_item(db, req) {
   req.on('end', function(){
   
     var post = qs.parse(data);
-    console.log(post);
+    
+    console.log(post['wantToDelete']);
   });
 }
 
@@ -90,7 +92,10 @@ var server = http.createServer(function (req, res) {
             switch (req.url) {
                 case '/delete':
                     delete_item(db, req);
-                    show_delete(db, res, jadeTemplate);
+                    res.writeHead(302,{
+                        'Location':'/show'
+                    });
+                    res.end();
                     break;
             
                 default:
