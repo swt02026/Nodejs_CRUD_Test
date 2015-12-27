@@ -24,6 +24,14 @@ function show(db, res, jadeTemplate) {
 
 function delete_db(db, res, jadeTemplate) {
     
+    db.query('select * from work',function (err, rows) {
+
+        var html = jadeTemplate({
+            delete_db: "delete",
+            rows:rows
+        });
+        writeHtml(res,html);
+    });
 }
 
 function showNothing(res, jadeTemplate) {
@@ -50,7 +58,7 @@ var server = http.createServer(function (req, res) {
             show(db, res, jadeTemplate);
             break;
         case '/delete':
-        
+            delete_db(db, res, jadeTemplate);
             break;
         default:
             showNothing(res, jadeTemplate);
