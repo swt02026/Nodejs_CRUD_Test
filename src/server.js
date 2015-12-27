@@ -63,7 +63,11 @@ function delete_item(db, req) {
   
     var post = qs.parse(data);
     
-    console.log(post['wantToDelete']);
+    db.query(
+        'Delete From work where id in (' + 
+        post['wantToDelete'].join(',') + ')'
+        );
+    console.log(post['wantToDelete'].join(','));
   });
 }
 
