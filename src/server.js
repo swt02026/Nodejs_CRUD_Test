@@ -79,6 +79,7 @@ function delete_item(db, req) {
   req.on('data',function(chunk){
     data += chunk;
   });
+  
   req.on('end', function(){
   
     var post = qs.parse(data);
@@ -96,6 +97,7 @@ function insert_item(db, req) {
     req.on('data',function(chunk){
         data += chunk;
     });
+    
     req.on('end', function(){
 
         var post = qs.parse(data);
@@ -112,6 +114,7 @@ function update_item(db, req) {
     req.on('data',function(chunk){
         data += chunk;
     });
+    
     req.on('end', function(){
 
         var post = qs.parse(data);
@@ -124,10 +127,32 @@ function update_item(db, req) {
 }
 
 function redirectTpoShow(res) {
+    
     res.writeHead(302,{
         'Location':'/show'
     });
     res.end();
+}
+
+function routeGET(reqUrl, db, res, jadeTemplate){
+    
+    switch (reqUrl) {
+        case '/show':
+            show(db, res, jadeTemplate);
+            break;
+        case '/delete':
+            show_delete(db, res, jadeTemplate);
+            break;
+        case '/insert':
+            show_insert(res, jadeTemplate);
+            break;
+        case '/update':
+            show_update(db, res, jadeTemplate);
+            break;
+        default:
+            showNothing(res, jadeTemplate);
+            break;
+    }
 }
 
 var server = http.createServer(function (req, res) {
@@ -137,23 +162,7 @@ var server = http.createServer(function (req, res) {
         
         case 'GET':
         
-            switch (req.url) {
-                case '/show':
-                    show(db, res, jadeTemplate);
-                    break;
-                case '/delete':
-                    show_delete(db, res, jadeTemplate);
-                    break;
-                case '/insert':
-                    show_insert(res, jadeTemplate);
-                    break;
-                case '/update':
-                    show_update(db, res, jadeTemplate);
-                    break;
-                default:
-                    showNothing(res, jadeTemplate);
-                    break;
-            }
+            routeGET(req.url, db, res, jadeTemplate);
             break;
             
         case 'POST':
