@@ -116,6 +116,10 @@ function update_item(db, req) {
 
         var post = qs.parse(data);
         console.log(post);
+        
+        db.query(
+            'update work set name=? where id=?',
+            [post.name, post.hidden]);
     });
 }
 
