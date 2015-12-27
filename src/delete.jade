@@ -6,7 +6,9 @@ form(action="/delete")
                     input(type="checkbox",name="wantToDelete[]")
                 td=val.id
                 td=val.name
-    input(type="submit",value="delete")
-button(type="button",
-onclick='location.href="/"',
-class="btn btn-primary") back
+    input(type="submit",
+    value="delete",
+    class="btn btn-info")
+    button(type="button",
+    onclick='location.href="/"',
+    class="btn btn-primary") back
