@@ -22,7 +22,7 @@ function show(db, res, jadeTemplate) {
     });
 }
 
-function delete_db(db, res, jadeTemplate) {
+function show_delete(db, res, jadeTemplate) {
     
     db.query('select * from work',function (err, rows) {
 
@@ -53,17 +53,26 @@ function writeHtml(res,html) {
 var server = http.createServer(function (req, res) {
     
     var jadeTemplate = jade.compileFile('./index.jade');
-    switch (req.url) {
-        case '/show':
-            show(db, res, jadeTemplate);
+    switch (req.method) {
+        
+        case 'GET':
+            switch (req.url) {
+                case '/show':
+                    show(db, res, jadeTemplate);
+                    break;
+                case '/delete':
+                    show_delete(db, res, jadeTemplate);
+                    break;
+                default:
+                    showNothing(res, jadeTemplate);
+                    break;
+            }
             break;
-        case '/delete':
-            delete_db(db, res, jadeTemplate);
-            break;
+    
         default:
-            showNothing(res, jadeTemplate);
             break;
     }
+
     
 });
 
