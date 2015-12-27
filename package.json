@@ -18,5 +18,13 @@
   "bugs": {
     "url": "https://github.com/swt02026/Nodejs_CRUD_Test/issues"
   },
-  "homepage": "https://github.com/swt02026/Nodejs_CRUD_Test#readme"
+  "homepage": "https://github.com/swt02026/Nodejs_CRUD_Test#readme",
+  "dependencies": {
+    "fs": "0.0.2",
+    "http": "0.0.0",
+    "jade": "^1.11.0",
+    "mysql": "^2.10.0",
+    "querystring": "^0.2.0",
+    "url": "^0.11.0"
+  }
 }
