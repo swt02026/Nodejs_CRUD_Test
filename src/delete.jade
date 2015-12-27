@@ -1,4 +1,4 @@
-form
+form(action="/delete")
     table(class="table table-bordered")
         each val in rows
             tr
@@ -6,6 +6,7 @@ form
                     input(type="checkbox",name="wantToDelete[]")
                 td=val.id
                 td=val.name
+    input(type="submit",value="delete")
 button(type="button",
 onclick='location.href="/"',
 class="btn btn-primary") back
