@@ -42,3 +42,10 @@ npm install
 cd src/
 node server.js
 ```
+
+#### Screen Shot
+
+
+###### On Index page
+
+![index](./resource/1.png)
