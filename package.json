@@ -1,0 +1,22 @@
+{
+  "name": "nodejs_crud_test",
+  "version": "1.0.0",
+  "description": "practice for nodejs crud with mysql docker image",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swt02026/Nodejs_CRUD_Test.git"
+  },
+  "keywords": [
+    "crud"
+  ],
+  "author": "swt02026",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/swt02026/Nodejs_CRUD_Test/issues"
+  },
+  "homepage": "https://github.com/swt02026/Nodejs_CRUD_Test#readme"
+}
