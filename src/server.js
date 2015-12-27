@@ -106,6 +106,19 @@ function insert_item(db, req) {
     });
 }
 
+function update_item(db, req) {
+    
+    var data = "";
+    req.on('data',function(chunk){
+        data += chunk;
+    });
+    req.on('end', function(){
+
+        var post = qs.parse(data);
+        console.log(post);
+    });
+}
+
 function redirectTpoShow(res) {
     res.writeHead(302,{
         'Location':'/show'
@@ -144,19 +157,15 @@ var server = http.createServer(function (req, res) {
             switch (req.url) {
                 case '/delete':
                     delete_item(db, req);
-                    redirectTpoShow(res);
                     break;
                 case '/insert':
                     insert_item(db, req);
-                    redirectTpoShow(res);
                     break;
                 case '/update':
-                    
-                    break;
-                default:
-                    showNothing(res, jadeTemplate);
+                    update_item(db, req);
                     break;
             }
+            redirectTpoShow(res);
             break;
             
         default:
