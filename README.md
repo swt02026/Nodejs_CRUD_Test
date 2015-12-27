@@ -39,5 +39,6 @@ npm install
 #### run server
 
 ```
-node src/server.js
+cd src/
+node server.js
 ```
