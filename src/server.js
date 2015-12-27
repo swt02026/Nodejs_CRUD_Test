@@ -2,6 +2,9 @@ var mysql = require('mysql');
 var http = require('http');
 var fs = require('fs');
 var jade = require('jade');
+var qs = require('querystring');
+var url = require('url');
+
 
 var db = mysql.createConnection({
     host: '127.0.0.1',
@@ -50,12 +53,24 @@ function writeHtml(res,html) {
     res.end(html); 
 }
 
+function delete_item(db, req) {
+  var data = "";
+  req.on('data',function(chunk){
+    data += chunk;
+  });
+  req.on('end', function(){
+  
+    console.log(data);
+  });
+}
+
 var server = http.createServer(function (req, res) {
     
     var jadeTemplate = jade.compileFile('./index.jade');
     switch (req.method) {
         
         case 'GET':
+        
             switch (req.url) {
                 case '/show':
                     show(db, res, jadeTemplate);
@@ -68,8 +83,23 @@ var server = http.createServer(function (req, res) {
                     break;
             }
             break;
-    
+            
+        case 'POST':
+        
+            switch (req.url) {
+                case '/delete':
+                    delete_item(db, req);
+                 
+                    break;
+            
+                default:
+                    showNothing(res, jadeTemplate);
+                    break;
+            }
+            break;
+            
         default:
+            showNothing(res, jadeTemplate);
             break;
     }
 
