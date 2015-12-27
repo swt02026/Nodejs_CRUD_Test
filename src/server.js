@@ -45,6 +45,18 @@ function show_insert(res, jadeTemplate) {
     writeHtml(res, html);
 }
 
+function show_update(db, res, jadeTemplate) {
+    
+    db.query('select * from work',function (err, rows) {
+
+        var html = jadeTemplate({
+            update: "update",
+            rows:rows
+        });
+        writeHtml(res,html);
+    });
+}
+
 function showNothing(res, jadeTemplate) {
         
     var html = jadeTemplate({
@@ -75,8 +87,23 @@ function delete_item(db, req) {
         'Delete From work where id in (' + 
         post['wantToDelete'].join(',') + ')'
         );
-    console.log(post['wantToDelete'].join(','));
   });
+}
+
+function insert_item(db, req) {
+    
+    var data = "";
+    req.on('data',function(chunk){
+        data += chunk;
+    });
+    req.on('end', function(){
+
+        var post = qs.parse(data);
+        db.query(
+            'insert into work(name) values (?)',
+            [post.name]
+            );
+    });
 }
 
 function redirectTpoShow(res) {
@@ -103,6 +130,9 @@ var server = http.createServer(function (req, res) {
                 case '/insert':
                     show_insert(res, jadeTemplate);
                     break;
+                case '/update':
+                    show_update(db, res, jadeTemplate);
+                    break;
                 default:
                     showNothing(res, jadeTemplate);
                     break;
@@ -116,7 +146,13 @@ var server = http.createServer(function (req, res) {
                     delete_item(db, req);
                     redirectTpoShow(res);
                     break;
-            
+                case '/insert':
+                    insert_item(db, req);
+                    redirectTpoShow(res);
+                    break;
+                case '/update':
+                    
+                    break;
                 default:
                     showNothing(res, jadeTemplate);
                     break;

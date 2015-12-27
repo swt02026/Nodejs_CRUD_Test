@@ -1,0 +1,40 @@
+script(type='text/javascript').
+    function changeInputField(id){
+        var defaultName = document.getElementById(id).cells[2].innerHTML;
+        var defaultId = document.getElementById(id).cells[1].innerHTML;
+        document.getElementById("name").value = defaultName;
+        document.getElementById("hidden").value = defaultId;
+    } 
+  
+
+form(action="/update",
+    method="POST",
+    role="form")
+    .form-group
+    label(for="name") Name:
+    input(type="text",
+        name="name",
+        class="form-control",
+        id="name")
+    input(type="hidden",
+        name="hidden",
+        value="",
+        id="hidden")
+
+    table(class="table table-bordered",id="table")
+        each val in rows
+            tr(id = val.id)
+                td
+                    button(
+                        type="button",
+                        class="btn btn-default",
+                        onclick="changeInputField("+val.id+")"
+                    ) 修改
+                td=val.id
+                td=val.name
+    button(type="button",
+    onclick='location.href="/"',
+    class="btn btn-primary") back
+    input(type="submit",
+    value="update",
+    class="btn btn-info")

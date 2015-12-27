@@ -13,6 +13,7 @@ html
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js",
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS",
         crossorigin="anonymous")
+        meta(charset="utf-8")
     if show
         include ./show.jade
     else if nothing
@@ -21,5 +22,5 @@ html
         include ./delete.jade
     else if insert
         include ./insert.jade
-    else if insert
+    else if update
         include ./update.jade
