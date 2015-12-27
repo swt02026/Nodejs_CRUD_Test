@@ -23,9 +23,21 @@ practice for CRUD on nodejs
 
 ## How to use
 
-### run docker with
+#### run docker with
 
 ```
 docker run --name=some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql
 ```
 
+#### install package
+
+```
+cd ./
+npm install
+```
+
+#### run server
+
+```
+node src/server.js
+```
