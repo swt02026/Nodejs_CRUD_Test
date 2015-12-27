@@ -60,7 +60,8 @@ function delete_item(db, req) {
   });
   req.on('end', function(){
   
-    console.log(data);
+    var post = qs.parse(data);
+    console.log(post);
   });
 }
 
@@ -89,7 +90,7 @@ var server = http.createServer(function (req, res) {
             switch (req.url) {
                 case '/delete':
                     delete_item(db, req);
-                 
+                    show_delete(db, res, jadeTemplate);
                     break;
             
                 default:
