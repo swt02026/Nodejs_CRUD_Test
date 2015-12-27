@@ -37,6 +37,14 @@ function show_delete(db, res, jadeTemplate) {
     });
 }
 
+function show_insert(res, jadeTemplate) {
+    
+    var html = jadeTemplate({
+        insert: "insert"
+    });
+    writeHtml(res, html);
+}
+
 function showNothing(res, jadeTemplate) {
         
     var html = jadeTemplate({
@@ -71,6 +79,13 @@ function delete_item(db, req) {
   });
 }
 
+function redirectTpoShow(res) {
+    res.writeHead(302,{
+        'Location':'/show'
+    });
+    res.end();
+}
+
 var server = http.createServer(function (req, res) {
     
     var jadeTemplate = jade.compileFile('./index.jade');
@@ -85,6 +100,9 @@ var server = http.createServer(function (req, res) {
                 case '/delete':
                     show_delete(db, res, jadeTemplate);
                     break;
+                case '/insert':
+                    show_insert(res, jadeTemplate);
+                    break;
                 default:
                     showNothing(res, jadeTemplate);
                     break;
@@ -96,10 +114,7 @@ var server = http.createServer(function (req, res) {
             switch (req.url) {
                 case '/delete':
                     delete_item(db, req);
-                    res.writeHead(302,{
-                        'Location':'/show'
-                    });
-                    res.end();
+                    redirectTpoShow(res);
                     break;
             
                 default:
