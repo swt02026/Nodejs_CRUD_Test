@@ -10,6 +10,7 @@ practice for CRUD on nodejs
 * jade(in package.json)
 * querystring(in package.json)
 * node mysql(in package.json)
+* 2015/12/27: update syntax to es6
 
 ## Table column
 
