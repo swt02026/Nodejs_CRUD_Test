@@ -15,7 +15,7 @@ var db = mysql.createConnection({
 
 function show(db, res, jadeTemplate) {
     
-    db.query('select * from work',function (err, rows) {
+    db.query('select * from work', (err, rows) => {
 
         var html = jadeTemplate({
             show:"show",
@@ -27,7 +27,7 @@ function show(db, res, jadeTemplate) {
 
 function show_delete(db, res, jadeTemplate) {
     
-    db.query('select * from work',function (err, rows) {
+    db.query('select * from work', (err, rows) => {
 
         var html = jadeTemplate({
             delete_db: "delete",
@@ -47,7 +47,7 @@ function show_insert(res, jadeTemplate) {
 
 function show_update(db, res, jadeTemplate) {
     
-    db.query('select * from work',function (err, rows) {
+    db.query('select * from work', (err, rows) => {
 
         var html = jadeTemplate({
             update: "update",
@@ -73,56 +73,50 @@ function writeHtml(res,html) {
     res.end(html); 
 }
 
-function delete_item(db, req) {
-    
-  var data = "";
-  req.on('data',function(chunk){
-    data += chunk;
-  });
-  
-  req.on('end', function(){
-  
-    var post = qs.parse(data);
-    
-    db.query(
-        'Delete From work where id in (' + 
-        [].concat(post['wantToDelete']).join(',') + ')'
-        );
-  });
-}
-
-function insert_item(db, req) {
+function db_operation (req, operation) {
     
     var data = "";
-    req.on('data',function(chunk){
+    req.on('data', chunk => {
         data += chunk;
     });
     
-    req.on('end', function(){
+    req.on('end', () => {
 
         var post = qs.parse(data);
-        db.query(
-            'insert into work(name) values (?)',
-            [post.name]
-            );
+
+        operation(post);
     });
+}
+
+
+function delete_item(db, req) {
+    
+    db_operation(req, (post) => {
+        db.query(
+           `Delete From work where id in (
+                ${[].concat(post['wantToDelete']).join(',')}
+            )`
+        );
+    })
+}
+
+function insert_item(db, req) {
+
+    db_operation(req,
+                 post => {
+                    db.query(
+                        'insert into work(name) values (?)',
+                        [post.name]
+                    );
+                });
 }
 
 function update_item(db, req) {
     
-    var data = "";
-    req.on('data',function(chunk){
-        data += chunk;
-    });
-    
-    req.on('end', function(){
-
-        var post = qs.parse(data);
-        console.log(post);
-        
+    db_operation(req, (post) => {
         db.query(
             'update work set name=? where id=?',
-            [post.name, post.hidden]);
+            [post.name, post.hidden]);        
     });
 }
 
